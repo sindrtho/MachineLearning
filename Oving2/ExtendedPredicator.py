@@ -59,11 +59,15 @@ y_train = [
     [results[i]] for i in range(len(results))
 ]
 
+
+LEARNING_RATE = 0.1
+EPOCHS = 5000
+
 # Creating model and initializing session
 model = LongShortTermMemoryModel(encoding_size)
 
 # Training: adjust the model so that its loss is minimized
-minimize_operation = tf.train.RMSPropOptimizer(0.05).minimize(model.loss)
+minimize_operation = tf.train.RMSPropOptimizer(LEARNING_RATE).minimize(model.loss)
 
 # Create session object for running TensorFlow operations
 session = tf.Session()
@@ -77,7 +81,7 @@ zero_state = session.run(model.in_state, {model.batch_size: 1})
 
 # Training the model
 # Trained an equal ammount of times on all emojis
-for epoch in range(5000):
+for epoch in range(EPOCHS):
     session.run(minimize_operation, {model.batch_size: 1, model.x: [x_train[epoch%100]], model.y: [y_train[epoch%100]], model.in_state: zero_state})
 
 
