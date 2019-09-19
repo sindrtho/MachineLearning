@@ -36,7 +36,7 @@ class LongShortTermMemoryModel:
 
 # Creating the training set
 
-data = pd.read_csv('emojis.csv')
+data = pd.read_csv('emojis50.csv')
 index_to_emoji = data['Emoji']
 
 results = []
@@ -82,7 +82,7 @@ zero_state = session.run(model.in_state, {model.batch_size: 1})
 # Training the model
 # Trained an equal ammount of times on all emojis
 for epoch in range(EPOCHS):
-    session.run(minimize_operation, {model.batch_size: 1, model.x: [x_train[epoch%100]], model.y: [y_train[epoch%100]], model.in_state: zero_state})
+    session.run(minimize_operation, {model.batch_size: 1, model.x: [x_train[epoch%50]], model.y: [y_train[epoch%50]], model.in_state: zero_state})
 
 
 # Function for predicting emoji from text
